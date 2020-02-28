@@ -39,8 +39,23 @@ const HARD_CODED_CHIRPS = [
 const initHCC = () => {
     fs.writeFile(dataPath, JSON.stringify(HARD_CODED_CHIRPS), err => {
         if (err) console.log(err);
-        console.log('written.');
+        console.log('written. \n');
     });
 }
 
 initHCC();
+
+const consoleLogChirps = () => {
+    fs.readFile(dataPath, 'utf8', (err, data) => {
+        if (err) console.log(err);
+        JSON.parse(data).forEach(chirp => {
+            console.log(chirp.id);
+            console.log(chirp.account);
+            console.log(chirp.date);
+            console.log(chirp.content);
+            console.log('\n');
+        })
+    });
+}
+
+consoleLogChirps();
