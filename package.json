@@ -1,0 +1,24 @@
+{
+  "name": "lab-nodejs",
+  "version": "0.5.0",
+  "description": "innovate birmingham lab for nodejs.",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plebtech/ib-lab-nodejs.git"
+  },
+  "keywords": [
+    "innovate",
+    "birmingham",
+    "nodejs"
+  ],
+  "author": "Nick McGlawn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/plebtech/ib-lab-nodejs/issues"
+  },
+  "homepage": "https://github.com/plebtech/ib-lab-nodejs#readme"
+}
