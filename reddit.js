@@ -5,10 +5,10 @@ const rp = require('request-promise');
 const dataPath = path.join(__dirname, "popular-articles.json");
 const POPULAR = [];
 
-// blanks popular-articles.json in preparation of new articles being appended.
-// writeFileSync() suspends execution until completion.
+// blanks popular-articles.json in preparation of new articles being written.
+// note: unused/unneeded due to writeFile() being used instead of appendFile();
 const wipe = () => {
-    fs.writeFileSync(dataPath, '', err => {
+    fs.writeFile(dataPath, '', err => {
         if (err) {
             console.log(err);
         } else {
@@ -34,7 +34,7 @@ const fetch = () => rp('https://reddit.com/r/popular.json', (err, res, body) => 
             }
             POPULAR.push(article);
             count++;
-        })
+        });
     }
     return res;
 });
@@ -49,7 +49,7 @@ const write = () => {
 
 // main function.
 const scrape = async () => {
-    wipe();
+    // wipe();
     await fetch();
     write();
 }
