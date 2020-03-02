@@ -5,22 +5,25 @@ const rp = require('request-promise');
 const dataPath = path.join(__dirname, "popular-articles.json");
 const POPULAR = [];
 
+// blanks popular-articles.json in preparation of new articles being appended.
+// writeFileSync() suspends execution until completion.
 const wipe = () => {
-    fs.writeFile(dataPath, '', err => {
-        if (err) console.log(err);
-        console.log('cache purged. \n');
-    })
+    fs.writeFileSync(dataPath, '', err => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('cache purged.');
+        }
+    });
 }
 
-// Extract from each article title, url, and author
-// Push each extracted article to an array.
-// Write the array to a file in the root of your project called popular-articles.json.
-
 // fetches popular articles from reddit and pushes them to an internal array.
+// returns promise so that it can be used asynchronously.
 const fetch = () => rp('https://reddit.com/r/popular.json', (err, res, body) => {
     let count = 0;
     if (err) {
         console.log(err);
+        return err;
     } else {
         JSON.parse(body).data.children.forEach(item => {
             let article = {
@@ -33,8 +36,21 @@ const fetch = () => rp('https://reddit.com/r/popular.json', (err, res, body) => 
             count++;
         })
     }
-    console.log(POPULAR);
+    return res;
 });
 
-wipe();
-fetch();
+// writes array of retrieved articles to popular-articles.json.
+const write = () => {
+    fs.writeFile(dataPath, JSON.stringify(POPULAR), err => {
+        if (err) console.log(err);
+        console.log('written.');
+    });
+}
+
+// main function.
+const scrape = async () => {
+    wipe();
+    await fetch();
+    write();
+}
+scrape();
