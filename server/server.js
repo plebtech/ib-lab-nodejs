@@ -43,8 +43,6 @@ const initHCC = () => {
     });
 }
 
-initHCC();
-
 const consoleLogChirps = () => {
     fs.readFile(dataPath, 'utf8', (err, data) => {
         if (err) console.log(err);
@@ -58,4 +56,6 @@ const consoleLogChirps = () => {
     });
 }
 
+// instantiation / testing.
+initHCC();
 consoleLogChirps();
