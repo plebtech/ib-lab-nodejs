@@ -26,13 +26,12 @@ const fetch = () => rp('https://reddit.com/r/popular.json', (err, res, body) => 
         return err;
     } else {
         JSON.parse(body).data.children.forEach(item => {
-            let article = {
+            POPULAR.push({
                 id: count,
                 title: item.data.title,
                 url: item.data.url,
                 author: item.data.author,
-            }
-            POPULAR.push(article);
+            });
             count++;
         });
     }
